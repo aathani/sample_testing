@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var impLCSchema = new Schema({
-  lcNum: Integer,
+  lcNum: String,
   customer: String,
   benefBank: String,
-  amount: number
+  amount: String
 });
 
 
-module.exports = mongoose.model('blobs', blobSchema);
+module.exports = mongoose.model('impLC', impLCSchema);
 
