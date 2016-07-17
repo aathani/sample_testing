@@ -75,39 +75,39 @@ describe('impLCs', function() {
 
   it('should add a SINGLE ImpLC on /ImpLCs POST', function(done) {
     chai.request(server)
-      .post('/ImpLCs')
-      .send({'name': 'Java', 'lastName': 'Script'})
+      .post('/users/impLC')
+      .send({'lcNum': '789', 'customer': 'Aish', 'benefBank': 'Citi', 'amount': '10000'})
       .end(function(err, res){
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('object');
         res.body.should.have.property('SUCCESS');
         res.body.SUCCESS.should.be.a('object');
-        res.body.SUCCESS.should.have.property('name');
-        res.body.SUCCESS.should.have.property('lastName');
+        res.body.SUCCESS.should.have.property('lcNum');
+        res.body.SUCCESS.should.have.property('customer');
         res.body.SUCCESS.should.have.property('_id');
-        res.body.SUCCESS.name.should.equal('Java');
-        res.body.SUCCESS.lastName.should.equal('Script');
+        res.body.SUCCESS.lcNum.should.equal('789');
+        res.body.SUCCESS.customer.should.equal('Aish');
         done();
       });
   });
 
   it('should update a SINGLE ImpLC on /ImpLC/<id> PUT', function(done) {
     chai.request(server)
-      .get('/ImpLCs')
+      .get('/users/impLC')
       .end(function(err, res){
         chai.request(server)
-          .put('/ImpLC/'+res.body[0]._id)
-          .send({'name': 'Spider'})
+          .put('/users/impLC/'+res.body[0]._id)
+          .send({'benefBank': 'Wells Fargo'})
           .end(function(error, response){
             response.should.have.status(200);
             response.should.be.json;
             response.body.should.be.a('object');
             response.body.should.have.property('UPDATED');
             response.body.UPDATED.should.be.a('object');
-            response.body.UPDATED.should.have.property('name');
+            response.body.UPDATED.should.have.property('benefBank');
             response.body.UPDATED.should.have.property('_id');
-            response.body.UPDATED.name.should.equal('Spider');
+            response.body.UPDATED.benefBank.should.equal('Wells Fargo');
             done();
         });
       });
@@ -115,19 +115,19 @@ describe('impLCs', function() {
 
   it('should delete a SINGLE ImpLC on /ImpLC/<id> DELETE', function(done) {
     chai.request(server)
-      .get('/ImpLCs')
+      .get('/users/impLC')
       .end(function(err, res){
         chai.request(server)
-          .delete('/ImpLC/'+res.body[0]._id)
+          .delete('/users/impLC/'+res.body[0]._id)
           .end(function(error, response){
             response.should.have.status(200);
             response.should.be.json;
             response.body.should.be.a('object');
             response.body.should.have.property('REMOVED');
             response.body.REMOVED.should.be.a('object');
-            response.body.REMOVED.should.have.property('name');
+            response.body.REMOVED.should.have.property('customer');
             response.body.REMOVED.should.have.property('_id');
-            response.body.REMOVED.name.should.equal('Bat');
+            response.body.REMOVED.customer.should.equal('Anand');
             done();
         });
       });
