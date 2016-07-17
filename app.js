@@ -4,11 +4,27 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+//var http = require('http');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// *** config file *** //
+var config = require('./_config');
+
+//  *** mongoose ***//
+
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+  if(err) {
+    console.log('Error connecting to the database. ' + err);
+  } else {
+    console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+  }
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

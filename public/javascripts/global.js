@@ -1,36 +1,37 @@
-var app = angular.module('userlistApp', []);
-app.controller('userlistCtrl', function($scope, $http) {
+var app = angular.module('impLCsApp', []);
+app.controller('impLCsCtrl', function($scope, $http) {
 
-$scope.userList = function() {
-	$http.get('users/userlist')
-	.success(function(response) {$scope.userarr=response;
-	                            });
+$scope.impLCs = function() {
+	$http.get('users/impLC')
+	.success(function(response) {alert(JSON.stringify(response)); $scope.impLCarr=response});
         };
 $scope.removeRow = function(id, pid) {
-	$http.delete('users/deleteuser/'+pid)
+	$http.delete('users/impLC/'+pid)
 	.success(function(response) {if (response.msg==='') {
-		                        $scope.userarr.splice(id,1);
+		                        $scope.impLCarr.splice(id,1);
 				    } else {
 					alert(response.msg);
 				    }});
         };
 
 $scope.addRow = function() {
-	$http.post('users/adduser', $scope.user)
+	alert($scope.impLC.customer);
+	$http.post('users/impLC', $scope.impLC)
 	.success(function(response) {if (response.msg==='') {
-		                        $scope.userList();
-					$scope.user='';
-	                                $scope.btnLbl="Add User";
+		                        $scope.impLCs();
+					$scope.impLC='';
+	                                $scope.btnLbl="Add LC";
 				    } else {
 					alert(JSON.stringify(response.msg));
 				    }});
         };
 $scope.modRow = function(id) {
-	$scope.user=(JSON.parse(JSON.stringify($scope.userarr[id])));
-	$scope.btnLbl="Edit User";
+	$scope.impLC=(JSON.parse(JSON.stringify($scope.impLCarr[id])));
+	$scope.btnLbl="Edit LC";
         };
 
-$scope.userList();
-$scope.btnLbl="Add User";
+$scope.impLCs();
+$scope.btnLbl="Addd LC";
+
 });
 
