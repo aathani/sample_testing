@@ -3,35 +3,30 @@ app.controller('impLCsCtrl', function($scope, $http) {
 
 $scope.impLCs = function() {
 	$http.get('users/impLC')
-	.success(function(response) {alert(JSON.stringify(response)); $scope.impLCarr=response});
+	.success(function(response) {$scope.impLCarr=response});
         };
 $scope.removeRow = function(id, pid) {
 	$http.delete('users/impLC/'+pid)
-	.success(function(response) {if (response.msg==='') {
-		                        $scope.impLCarr.splice(id,1);
-				    } else {
-					alert(response.msg);
-				    }});
-        };
+	.success(function(response) {$scope.impLCarr.splice(id,1);
+				    } 
+        )};
 
 $scope.addRow = function() {
-	alert($scope.impLC.customer);
 	$http.post('users/impLC', $scope.impLC)
-	.success(function(response) {if (response.msg==='') {
+	.success(function(response) {
 		                        $scope.impLCs();
-					$scope.impLC='';
-	                                $scope.btnLbl="Add LC";
-				    } else {
-					alert(JSON.stringify(response.msg));
-				    }});
-        };
+								$scope.impLC='';
+	                            $scope.btnLbl="Add LC";
+	                           } 
+        )};
+
 $scope.modRow = function(id) {
 	$scope.impLC=(JSON.parse(JSON.stringify($scope.impLCarr[id])));
 	$scope.btnLbl="Edit LC";
         };
 
 $scope.impLCs();
-$scope.btnLbl="Addd LC";
+$scope.btnLbl="Add LC";
 
 });
 

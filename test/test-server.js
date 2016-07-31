@@ -42,7 +42,7 @@ describe('impLCs', function() {
         res.body[0].should.have.property('lcNum');
         res.body[0].should.have.property('customer');
         res.body[0].lcNum.should.equal('123');
-        res.body[0].customer.should.equal('Anand');
+        res.body[0].customer.should.equal('Vamsi');
         done();
       });
   });

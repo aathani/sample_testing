@@ -40,12 +40,14 @@ function addImpLC(req, res) {
     benefBank: req.body.benefBank,
     amount: req.body.amount
   });
-  console.log(newImpLC.custom); //Temp Line
+  
   newImpLC.save(function(err) {
     if(err) {
       res.json({'ERROR': err});
+      console.log('Added with errors');
     } else {
       res.json({'SUCCESS': newImpLC});
+      console.log('Added Clean');
     }
   });
 }
